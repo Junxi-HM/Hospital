@@ -29,11 +29,15 @@ public class NurseService {
                 .filter(nurse -> nurse.getName().toLowerCase().contains(lowerName))
                 .collect(Collectors.toList());
     }
+
     public Nurse login(Long id, String password) {
         return nurses.stream()
                 .filter(nurse -> nurse.getId().equals(id) && 
                                 nurse.getPassword().equals(password))
                 .findFirst()
                 .orElse(null);
+    
+    public List<Nurse> getNurses (){
+    	return nurses;
     }
 }
