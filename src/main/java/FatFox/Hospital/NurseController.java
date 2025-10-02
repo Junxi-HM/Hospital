@@ -19,6 +19,15 @@ public class NurseController {
         return nurseService.searchByName(name);
     }
     
+    @GetMapping("/nurses/login")
+    public String login(@RequestParam Long id, @RequestParam String password) {
+        Nurse nurse = nurseService.login(id, password);
+        if (nurse != null) {
+            return "Login succes, welcome!，" + nurse.getName();
+        } else {
+            return "Error, incorrect id or password!。";
+        }
+
     @GetMapping("/nurse/index")
     public List<Nurse> getAll() {
         return nurseService.getNurses();
