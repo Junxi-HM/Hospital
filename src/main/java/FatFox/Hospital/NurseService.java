@@ -29,4 +29,8 @@ public class NurseService {
                 .filter(nurse -> nurse.getName().toLowerCase().contains(lowerName))
                 .collect(Collectors.toList());
     }
+    
+    public List<Nurse> getNurses (){
+    	return nurses;
+    }
 }
