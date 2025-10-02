@@ -1,22 +1,20 @@
 package FatFox.Hospital;
 
-import FatFox.Hospital.Nurse;
-import FatFox.Hospital.NurseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/nurse")  // from url starting with
 public class NurseController {
 	@Autowired
 	private NurseService nurseService;
 
-	@GetMapping("/nurse/search")
+	@GetMapping("/search")
 	public List<Nurse> searchNurses(@RequestParam String name) {
 		return nurseService.searchByName(name);
 	}
@@ -28,7 +26,7 @@ public class NurseController {
 	 * nurse.getName(); } else { return "Error, incorrect id or password!"; } }
 	 **/
 
-	@PostMapping("/nurses/login")
+	@PostMapping("/login")
 	public String login(@RequestBody LoginRequest loginRequest) {
 		Nurse nurse = nurseService.login(loginRequest.getId(), loginRequest.getPassword());
 		if (nurse != null) {
@@ -59,7 +57,7 @@ public class NurseController {
 		}
 	}
 
-	@GetMapping("/nurse/index")
+	@GetMapping("/index")
 	public List<Nurse> getAll() {
 		return nurseService.getNurses();
 	}
