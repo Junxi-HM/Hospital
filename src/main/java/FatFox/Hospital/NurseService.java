@@ -22,12 +22,13 @@ public class NurseService {
 	}
 
 	public List<Nurse> searchByName(String name) {
-		if (name == null || name.isEmpty()) {
-			return new ArrayList<>(); // Or return all if preferred
-		}
-		String lowerName = name.toLowerCase();
-		return nurses.stream().filter(nurse -> nurse.getName().toLowerCase().contains(lowerName))
-				.collect(Collectors.toList());
+	    if (name == null || name.isEmpty()) {
+	        return new ArrayList<>(); // Or return all if preferred
+	    }
+	    String lowerName = name.toLowerCase();
+	    return nurses.stream()
+	                 .filter(nurse -> nurse.getName().toLowerCase().contains(lowerName))
+	                 .collect(Collectors.toList());
 	}
 
 	public Nurse login(Long id, String password) {
