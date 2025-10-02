@@ -14,8 +14,13 @@ public class NurseController {
     @Autowired
     private NurseService nurseService;
 
-    @GetMapping("/nurses/search")
+    @GetMapping("/nurse/search")
     public List<Nurse> searchNurses(@RequestParam String name) {
         return nurseService.searchByName(name);
+    }
+    
+    @GetMapping("/nurse/index")
+    public List<Nurse> getAll() {
+        return nurseService.getNurses();
     }
 }
