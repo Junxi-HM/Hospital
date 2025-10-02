@@ -2,7 +2,6 @@ package FatFox.Hospital;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +13,8 @@ public class NurseController {
 	@Autowired
 	private NurseService nurseService;
 
-	@GetMapping("/search")
-	public List<Nurse> searchNurses(@RequestParam String name) {
+	@GetMapping("/name/{name}")
+	public List<Nurse> searchNurses(@PathVariable String name) {
 		return nurseService.searchByName(name);
 	}
 
