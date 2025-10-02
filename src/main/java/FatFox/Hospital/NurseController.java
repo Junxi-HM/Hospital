@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -19,13 +21,41 @@ public class NurseController {
 		return nurseService.searchByName(name);
 	}
 
-	@GetMapping("/nurse/login")
-	public String login(@RequestParam Long id, @RequestParam String password) {
-		Nurse nurse = nurseService.login(id, password);
+	/**
+	 * @GetMapping("/nurse/login") public String login(@RequestParam Long
+	 * id, @RequestParam String password) { Nurse nurse = nurseService.login(id,
+	 * password); if (nurse != null) { return "Login succes, welcome! " +
+	 * nurse.getName(); } else { return "Error, incorrect id or password!"; } }
+	 **/
+
+	@PostMapping("/nurses/login")
+	public String login(@RequestBody LoginRequest loginRequest) {
+		Nurse nurse = nurseService.login(loginRequest.getId(), loginRequest.getPassword());
 		if (nurse != null) {
-			return "Login succes, welcome!，" + nurse.getName();
+			return "Login succes, welcome! " + nurse.getName();
 		} else {
-			return "Error, incorrect id or password!。";
+			return "Error, incorrect id or password!";
+		}
+	}
+
+	public static class LoginRequest {
+		private Long id;
+		private String password;
+
+		public Long getId() {
+			return id;
+		}
+
+		public void setId(Long id) {
+			this.id = id;
+		}
+
+		public String getPassword() {
+			return password;
+		}
+
+		public void setPassword(String password) {
+			this.password = password;
 		}
 	}
 
