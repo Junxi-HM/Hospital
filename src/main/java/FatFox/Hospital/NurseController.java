@@ -11,25 +11,26 @@ import java.util.List;
 
 @RestController
 public class NurseController {
-    @Autowired
-    private NurseService nurseService;
+	@Autowired
+	private NurseService nurseService;
 
-    @GetMapping("/nurse/search")
-    public List<Nurse> searchNurses(@RequestParam String name) {
-        return nurseService.searchByName(name);
-    }
-    
-    @GetMapping("/nurses/login")
-    public String login(@RequestParam Long id, @RequestParam String password) {
-        Nurse nurse = nurseService.login(id, password);
-        if (nurse != null) {
-            return "Login succes, welcome!，" + nurse.getName();
-        } else {
-            return "Error, incorrect id or password!。";
-        }
+	@GetMapping("/nurse/search")
+	public List<Nurse> searchNurses(@RequestParam String name) {
+		return nurseService.searchByName(name);
+	}
 
-    @GetMapping("/nurse/index")
-    public List<Nurse> getAll() {
-        return nurseService.getNurses();
-    }
+	@GetMapping("/nurse/login")
+	public String login(@RequestParam Long id, @RequestParam String password) {
+		Nurse nurse = nurseService.login(id, password);
+		if (nurse != null) {
+			return "Login succes, welcome!，" + nurse.getName();
+		} else {
+			return "Error, incorrect id or password!。";
+		}
+	}
+
+	@GetMapping("/nurse/index")
+	public List<Nurse> getAll() {
+		return nurseService.getNurses();
+	}
 }
