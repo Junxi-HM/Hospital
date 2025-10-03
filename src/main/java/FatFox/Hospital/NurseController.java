@@ -35,6 +35,16 @@ public class NurseController {
 	 **/
 
 	@PostMapping("/login")
+	 public ResponseEntity<Boolean> login(@RequestBody Nurse nurse) {
+        boolean isAuthenticated = nurseService.login(nurse.getId(), nurse.getPassword());
+        
+        if (isAuthenticated) {
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
+        }
+    }
+	/**
 	public ResponseEntity<Boolean> login(@RequestBody LoginRequest loginRequest) {
 		boolean isAuthenticated = nurseService.login(loginRequest.getId(), loginRequest.getPassword());
 
@@ -64,7 +74,7 @@ public class NurseController {
 		public void setPassword(String password) {
 			this.password = password;
 		}
-	}
+	}**/
 
 	@GetMapping("/index")
 	public ResponseEntity<List<Nurse>> getAll() {
