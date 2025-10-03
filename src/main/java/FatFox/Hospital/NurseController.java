@@ -3,6 +3,7 @@ package FatFox.Hospital;
 import FatFox.Hospital.Nurse;
 import FatFox.Hospital.NurseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,9 +17,13 @@ public class NurseController {
 	@Autowired
 	private NurseService nurseService;
 
-	@GetMapping("/nurse/search")
-	public List<Nurse> searchNurses(@RequestParam String name) {
-		return nurseService.searchByName(name);
+	@GetMapping("/name/{name}")
+	public ResponseEntity<List<Nurse>> searchNurses(@PathVariable String name) {
+	    List<Nurse> nurses = nurseService.searchByName(name);
+	    if (nurses.isEmpty()) {
+	        return ResponseEntity.notFound().build();
+	    }
+	    return ResponseEntity.ok(nurses);
 	}
 
 	/**
