@@ -30,9 +30,8 @@ public class NurseService {
 				.collect(Collectors.toList());
 	}
 
-	public Nurse login(Long id, String password) {
-		return nurses.stream().filter(nurse -> nurse.getId().equals(id) && nurse.getPassword().equals(password))
-				.findFirst().orElse(null);
+	public boolean login(Long id, String password) {
+		return nurses.stream().anyMatch(nurse -> nurse.getId().equals(id) && nurse.getPassword().equals(password));
 	}
 
 	public List<Nurse> getNurses() {
