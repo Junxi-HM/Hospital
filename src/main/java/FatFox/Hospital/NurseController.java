@@ -19,8 +19,12 @@ public class NurseController {
 	private NurseService nurseService;
 
 	@GetMapping("/name/{name}")
-	public List<Nurse> searchNurses(@PathVariable String name) {
-		return nurseService.searchByName(name);
+	public ResponseEntity<List<Nurse>> searchNurses(@PathVariable String name) {
+	    List<Nurse> nurses = nurseService.searchByName(name);
+	    if (nurses.isEmpty()) {
+	        return ResponseEntity.notFound().build();
+	    }
+	    return ResponseEntity.ok(nurses);
 	}
 
 	/**
