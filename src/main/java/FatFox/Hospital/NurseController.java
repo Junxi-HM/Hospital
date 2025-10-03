@@ -5,14 +5,15 @@ import FatFox.Hospital.NurseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/nurse") // from url starting with
 public class NurseController {
 	@Autowired
 	private NurseService nurseService;
@@ -33,13 +34,14 @@ public class NurseController {
 	 * nurse.getName(); } else { return "Error, incorrect id or password!"; } }
 	 **/
 
-	@PostMapping("/nurses/login")
-	public String login(@RequestBody LoginRequest loginRequest) {
-		Nurse nurse = nurseService.login(loginRequest.getId(), loginRequest.getPassword());
-		if (nurse != null) {
-			return "Login succes, welcome! " + nurse.getName();
+	@PostMapping("/login")
+	public ResponseEntity<Boolean> login(@RequestBody LoginRequest loginRequest) {
+		boolean isAuthenticated = nurseService.login(loginRequest.getId(), loginRequest.getPassword());
+
+		if (isAuthenticated) {
+			return ResponseEntity.ok(true); // 200 OK
 		} else {
-			return "Error, incorrect id or password!";
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false); // 401 Unauthorized
 		}
 	}
 
@@ -64,8 +66,8 @@ public class NurseController {
 		}
 	}
 
-	@GetMapping("/nurse/index")
-	public List<Nurse> getAll() {
-		return nurseService.getNurses();
+	@GetMapping("/index")
+	public ResponseEntity<List<Nurse>> getAll() {
+		return ResponseEntity.ok(nurseService.getNurses());
 	}
 }
