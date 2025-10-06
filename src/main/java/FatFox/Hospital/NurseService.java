@@ -21,14 +21,15 @@ public class NurseService {
 		nurses.add(new Nurse(4L, "David Alice", "pw123")); // For partial match testing
 	}
 
-	public List<Nurse> searchByName(String name) {
+	public Nurse searchByName(String name) {
 	    if (name == null || name.isEmpty()) {
-	        return new ArrayList<>(); // Or return all if preferred
+	        return null; // Returns null if name is null or empty
 	    }
 	    String lowerName = name.toLowerCase();
 	    return nurses.stream()
-	                 .filter(nurse -> nurse.getName().toLowerCase().contains(lowerName))
-	                 .collect(Collectors.toList());
+	                 .filter(nurse -> nurse.getName().toLowerCase().equals(lowerName))
+	                 .findFirst() // Take the first nurse that matches
+	                 .orElse(null); // Returns null if there are no matches
 	}
 
 	public boolean login(Long id, String password) {
