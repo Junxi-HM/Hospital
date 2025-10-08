@@ -1,24 +1,32 @@
 package FatFox.Hospital;
 
-import FatFox.Hospital.Nurse;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class NurseService {
 	private List<Nurse> nurses = new ArrayList<>();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
 	@PostConstruct
 	public void init() {
-		// Sample data initialization
-		nurses.add(new Nurse(1L, "Alice Johnson", "pw123"));
-		nurses.add(new Nurse(2L, "Bob Smith", "pw123"));
-		nurses.add(new Nurse(3L, "Carol Davis", "pw123"));
-		nurses.add(new Nurse(4L, "David Alice", "pw123")); // For partial match testing
+		try {
+            // Path to the JSON file
+            File file = new File("src/main/java/FatFox/Hospital/NurseData.json");
+            // Read JSON file and map it to a List<Nurse>
+            nurses = objectMapper.readValue(file, new TypeReference<List<Nurse>>() {});
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception (e.g., log error, throw custom exception, or initialize with empty list)
+            nurses = new ArrayList<>();
+        }
 	}
 
 	public Nurse searchByName(String name) {
