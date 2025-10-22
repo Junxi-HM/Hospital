@@ -1,45 +1,15 @@
 package FatFox.Hospital;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.annotation.PostConstruct;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class NurseService {
-	@Autowired 
-	private UserRepository userRepository;
-	
-	private List<Nurse> nurses = new ArrayList<>();
-    private final ObjectMapper objectMapper = new ObjectMapper();
-	
-	@PostConstruct
-	public void init() {
-		try {
-            // Path to the JSON file
-            File file = new File("src/main/java/FatFox/Hospital/NurseData.json");
-            // Read JSON file and map it to a List<Nurse>
-            nurses = objectMapper.readValue(file, new TypeReference<List<Nurse>>() {});
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle the exception (e.g., log error, throw custom exception, or initialize with empty list)
-            nurses = new ArrayList<>();
-        }
-	}
-
-
 	@Autowired
     private NurseRepository nurseRepository;
+
     public Nurse searchByName(String name) {
         if (name == null || name.isEmpty()) {
             return null; // Returns null if name is null or empty
@@ -50,10 +20,10 @@ public class NurseService {
     }
 
 	public boolean login(String user, String password) {
-		return userRepository.existsByUserAndPassword(user, password);
+		return nurseRepository.existsByUserAndPassword(user, password);
 	}
 
-	public List<Nurse> getNurses() {
-		return nurses;
+	public Iterable<Nurse> getNurses() {
+		return nurseRepository.findAll();
 	}
 }

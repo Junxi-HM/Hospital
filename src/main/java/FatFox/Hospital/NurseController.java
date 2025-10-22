@@ -1,16 +1,11 @@
 package FatFox.Hospital;
 
-import FatFox.Hospital.Nurse;
-import FatFox.Hospital.NurseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/nurse") // from url starting with
@@ -27,7 +22,6 @@ public class NurseController {
 	    return ResponseEntity.ok(nurse);
 	}
 
-
 	@PostMapping("/login")
 	 public ResponseEntity<Boolean> login(@RequestBody Nurse nurse) {
         boolean isAuthenticated = nurseService.login(nurse.getUser(), nurse.getPassword());
@@ -39,9 +33,8 @@ public class NurseController {
         }
     }
 	
-
 	@GetMapping("/index")
-	public ResponseEntity<List<Nurse>> getAll() {
+	public ResponseEntity<Iterable<Nurse>> getAll() {
 		return ResponseEntity.ok(nurseService.getNurses());
 	}
 }
