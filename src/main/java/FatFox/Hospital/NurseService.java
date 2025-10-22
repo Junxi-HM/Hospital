@@ -15,8 +15,8 @@ public class NurseService {
             return null; // Returns null if name is null or empty
         }
         String lowerName = name.toLowerCase();
-        Optional<Nurse> nurse = nurseRepository.findByNameIgnoreCase(lowerName);
-        return nurse.orElse(null); // Returns null if no match is found
+        Nurse nurse = nurseRepository.findByNameIgnoreCase(lowerName);
+        return nurse; // Returns null if no match is found
     }
 
 	public boolean login(String user, String password) {
