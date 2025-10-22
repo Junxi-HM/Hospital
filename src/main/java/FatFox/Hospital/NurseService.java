@@ -10,8 +10,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Service
 public class NurseService {
+	@Autowired 
+	private UserRepository userRepository;
+	
 	private List<Nurse> nurses = new ArrayList<>();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -40,8 +45,8 @@ public class NurseService {
 	                 .orElse(null); // Returns null if there are no matches
 	}
 
-	public boolean login(Long id, String password) {
-		return nurses.stream().anyMatch(nurse -> nurse.getId().equals(id) && nurse.getPassword().equals(password));
+	public boolean login(String user, String password) {
+		return userRepository.existsByUserAndPassword(user, password);
 	}
 
 	public List<Nurse> getNurses() {
