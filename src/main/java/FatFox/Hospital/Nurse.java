@@ -4,12 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalDate; 
 
-@Entity                      // Marca esta clase como una entidad JPA
+@Entity // Marca esta clase como una entidad JPA
 public class Nurse {
 
-    @Id                                          // Indica la clave primaria
+    @Id // Indica la clave primaria
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
     private Long id;
     private String name;
