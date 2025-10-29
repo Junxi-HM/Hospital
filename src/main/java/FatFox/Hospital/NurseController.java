@@ -13,6 +13,24 @@ public class NurseController {
 	@Autowired
 	private NurseService nurseService;
 
+	// CREATE
+	@PostMapping
+	public ResponseEntity<Nurse> createNurse(@RequestBody Nurse nurse) {
+		try {
+			// Basic validation
+			if (nurse.getName() == null || nurse.getName().isEmpty() || nurse.getSurname() == null
+					|| nurse.getSurname().isEmpty() || nurse.getUser() == null || nurse.getUser().isEmpty()
+					|| nurse.getPassword() == null || nurse.getPassword().isEmpty()) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+			}
+
+			Nurse createdNurse = nurseService.createNurse(nurse);
+			return ResponseEntity.status(HttpStatus.CREATED).body(createdNurse);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+
 	// DELETE BY ID
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteNurse(@PathVariable Long id) {

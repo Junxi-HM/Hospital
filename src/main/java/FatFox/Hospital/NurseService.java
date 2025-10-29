@@ -9,6 +9,11 @@ import java.util.Optional;
 public class NurseService {
 	@Autowired
 	private NurseRepository nurseRepository;
+	
+	// CREATE
+		public Nurse createNurse(Nurse nurse) {
+			return nurseRepository.save(nurse);
+		}
 
 	// DELETE
 	public boolean deleteNurse(Long id) {
