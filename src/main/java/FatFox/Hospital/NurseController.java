@@ -15,7 +15,7 @@ public class NurseController {
 	@Autowired
 	private NurseService nurseService;
 
-	// CREATE
+	// CREATE NURSE
 	@PostMapping("/create")
 	public ResponseEntity<Nurse> createNurse(@RequestBody Nurse nurse) {
 		try {
@@ -41,6 +41,23 @@ public class NurseController {
 			return ResponseEntity.ok(nurse);
 		}
 		return ResponseEntity.notFound().build();
+	}
+
+	// UPDATE BY ID
+	@PutMapping("/update/{id}")
+	public ResponseEntity<Nurse> updateNurse(@PathVariable Long id, @RequestBody Nurse nurse) {
+		// Verify that the data submitted is correct
+		if (nurse.getName() == null || nurse.getName().isEmpty() || nurse.getSurname() == null
+				|| nurse.getSurname().isEmpty() || nurse.getUser() == null || nurse.getUser().isEmpty()
+				|| nurse.getPassword() == null || nurse.getPassword().isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		Nurse updatedNurse = nurseService.updateNurse(id, nurse);
+		if (updatedNurse == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return ResponseEntity.ok(updatedNurse);
 	}
 
 	// DELETE BY ID

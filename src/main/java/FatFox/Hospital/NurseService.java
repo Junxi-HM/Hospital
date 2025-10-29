@@ -19,6 +19,22 @@ public class NurseService {
 	public Optional<Nurse> readNurse(Long id) {
 		return nurseRepository.findById(id);
 	}
+	
+	// UPDATE
+	public Nurse updateNurse(Long id, Nurse nurseData) {
+		Optional<Nurse> existingNurse = nurseRepository.findById(id);
+		
+		if (existingNurse.isPresent()) {
+			Nurse nurse = existingNurse.get();
+			nurse.setName(nurseData.getName());
+			nurse.setSurname(nurseData.getSurname());
+			nurse.setUser(nurseData.getUser());
+			nurse.setPassword(nurseData.getPassword());
+			return nurseRepository.save(nurse);
+		}
+		
+		return null;
+	}
 
 	// DELETE
 	public boolean deleteNurse(Long id) {
