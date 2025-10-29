@@ -1,5 +1,7 @@
 package FatFox.Hospital;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +16,7 @@ public class NurseController {
 	private NurseService nurseService;
 
 	// CREATE
-	@PostMapping
+	@PostMapping("/create")
 	public ResponseEntity<Nurse> createNurse(@RequestBody Nurse nurse) {
 		try {
 			// Basic validation
@@ -31,8 +33,18 @@ public class NurseController {
 		}
 	}
 
+	// READ BY ID
+	@GetMapping("/read/{id}")
+	public ResponseEntity<Optional<Nurse>> findByID(@PathVariable Long id) {
+		Optional<Nurse> nurse = nurseService.readNurse(id);
+		if (nurse.isPresent()) {
+			return ResponseEntity.ok(nurse);
+		}
+		return ResponseEntity.notFound().build();
+	}
+
 	// DELETE BY ID
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Void> deleteNurse(@PathVariable Long id) {
 		boolean deleted = nurseService.deleteNurse(id);
 		if (!deleted) {

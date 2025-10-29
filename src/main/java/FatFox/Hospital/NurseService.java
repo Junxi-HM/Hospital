@@ -9,11 +9,16 @@ import java.util.Optional;
 public class NurseService {
 	@Autowired
 	private NurseRepository nurseRepository;
-	
+
 	// CREATE
-		public Nurse createNurse(Nurse nurse) {
-			return nurseRepository.save(nurse);
-		}
+	public Nurse createNurse(Nurse nurse) {
+		return nurseRepository.save(nurse);
+	}
+
+	// READ
+	public Optional<Nurse> readNurse(Long id) {
+		return nurseRepository.findById(id);
+	}
 
 	// DELETE
 	public boolean deleteNurse(Long id) {
