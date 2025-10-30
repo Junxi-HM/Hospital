@@ -1,9 +1,9 @@
 package FatFox.Hospital;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class NurseService {
@@ -19,11 +19,11 @@ public class NurseService {
 	public Optional<Nurse> readNurse(Long id) {
 		return nurseRepository.findById(id);
 	}
-	
+
 	// UPDATE
 	public Nurse updateNurse(Long id, Nurse nurseData) {
 		Optional<Nurse> existingNurse = nurseRepository.findById(id);
-		
+
 		if (existingNurse.isPresent()) {
 			Nurse nurse = existingNurse.get();
 			nurse.setName(nurseData.getName());
@@ -32,7 +32,6 @@ public class NurseService {
 			nurse.setPassword(nurseData.getPassword());
 			return nurseRepository.save(nurse);
 		}
-		
 		return null;
 	}
 
@@ -45,6 +44,7 @@ public class NurseService {
 		return false;
 	}
 
+	// GET BY NAME
 	public Nurse searchByName(String name) {
 		if (name == null || name.isEmpty()) {
 			return null; // Returns null if name is null or empty
@@ -54,10 +54,12 @@ public class NurseService {
 		return nurse; // Returns null if no match is found
 	}
 
+	// LOGIN
 	public boolean login(String user, String password) {
 		return nurseRepository.existsByUserAndPassword(user, password);
 	}
 
+	// GET ALL
 	public Iterable<Nurse> getNurses() {
 		return nurseRepository.findAll();
 	}
