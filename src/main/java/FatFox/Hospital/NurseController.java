@@ -16,7 +16,7 @@ public class NurseController {
 	private NurseService nurseService;
 
 	// CREATE NURSE
-	@PostMapping("/create")
+	@PostMapping("/new")
 	public ResponseEntity<Nurse> createNurse(@RequestBody Nurse nurse) {
 		try {
 			// Basic validation
@@ -25,7 +25,6 @@ public class NurseController {
 					|| nurse.getPassword() == null || nurse.getPassword().isEmpty()) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 			}
-
 			Nurse createdNurse = nurseService.createNurse(nurse);
 			return ResponseEntity.status(HttpStatus.CREATED).body(createdNurse);
 		} catch (Exception e) {
@@ -34,7 +33,7 @@ public class NurseController {
 	}
 
 	// READ BY ID
-	@GetMapping("/read/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Optional<Nurse>> findByID(@PathVariable Long id) {
 		Optional<Nurse> nurse = nurseService.readNurse(id);
 		if (nurse.isPresent()) {
@@ -44,7 +43,7 @@ public class NurseController {
 	}
 
 	// UPDATE BY ID
-	@PutMapping("/update/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Nurse> updateNurse(@PathVariable Long id, @RequestBody Nurse nurse) {
 		// Verify that the data submitted is correct
 		if (nurse.getName() == null || nurse.getName().isEmpty() || nurse.getSurname() == null
@@ -61,7 +60,7 @@ public class NurseController {
 	}
 
 	// DELETE BY ID
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteNurse(@PathVariable Long id) {
 		boolean deleted = nurseService.deleteNurse(id);
 		if (!deleted) {
@@ -70,6 +69,7 @@ public class NurseController {
 		return ResponseEntity.ok().build();
 	}
 
+	// GET BY NAME
 	@GetMapping("/name/{name}")
 	public ResponseEntity<Nurse> searchNurses(@PathVariable String name) {
 		Nurse nurse = nurseService.searchByName(name);
@@ -79,6 +79,7 @@ public class NurseController {
 		return ResponseEntity.ok(nurse);
 	}
 
+	// NURSE LOGIN
 	@PostMapping("/login")
 	public ResponseEntity<Boolean> login(@RequestBody Nurse nurse) {
 		boolean isAuthenticated = nurseService.login(nurse.getUser(), nurse.getPassword());
@@ -90,6 +91,7 @@ public class NurseController {
 		}
 	}
 
+	// GET ALL
 	@GetMapping("/index")
 	public ResponseEntity<Iterable<Nurse>> getAll() {
 		return ResponseEntity.ok(nurseService.getNurses());
