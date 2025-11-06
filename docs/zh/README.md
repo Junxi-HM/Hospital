@@ -65,7 +65,7 @@ http://localhost:8080/nurse
 | GET | `/index` | 获取所有护士 |
 
 #### 🔹 Postman 集合
-你可以使用这个 Postman 集合测试所有接口: [Postman Collection](https://joanye777-7222981.postman.co/workspace/Joan-Ye's-Workspace~8a2b14e3-3b6f-47fc-8435-b5eb179aec2e/collection/48943275-c22ef72d-da7d-4595-b85e-e6d17837ad3d?action=share&creator=48943275)
+要测试所有接口，请在 Postman 中导入此 JSON 文件: [Postman Collection](../../src/test/java/FatFox/Hospital/FatFox%20REST%20API%20basics-%20CRUD,%20test%20&%20variable.postman_collection.json)
 
 ---
 

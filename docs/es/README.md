@@ -64,8 +64,8 @@ http://localhost:8080/nurse
 | POST | `/login` | Inicio de sesión del enfermero |
 | GET | `/index` | Obtener todos los enfermeros |
 
-#### 🔹 Enlace de Postman
-Puedes probar todos los endpoints usando esta colección de Postman: [Postman Collection](https://joanye777-7222981.postman.co/workspace/Joan-Ye's-Workspace~8a2b14e3-3b6f-47fc-8435-b5eb179aec2e/collection/48943275-c22ef72d-da7d-4595-b85e-e6d17837ad3d?action=share&creator=48943275)
+#### 🔹 Colección de Postman
+Para probar todos los endpoints, importa este archivo JSON en Postman: [Postman Collection](../../src/test/java/FatFox/Hospital/FatFox%20REST%20API%20basics-%20CRUD,%20test%20&%20variable.postman_collection.json)
 
 ---
 

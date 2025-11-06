@@ -65,7 +65,7 @@ http://localhost:8080/nurse
 | GET | `/index` | Get all nurses |
 
 #### 🔹 Postman Collection
-You can test all endpoints using this Postman collection: [Postman Collection](https://joanye777-7222981.postman.co/workspace/Joan-Ye's-Workspace~8a2b14e3-3b6f-47fc-8435-b5eb179aec2e/collection/48943275-c22ef72d-da7d-4595-b85e-e6d17837ad3d?action=share&creator=48943275)
+To test all endpoints, import this JSON file into Postman: [Postman Collection](../../src/test/java/FatFox/Hospital/FatFox%20REST%20API%20basics-%20CRUD,%20test%20&%20variable.postman_collection.json)
 
 ---
 
